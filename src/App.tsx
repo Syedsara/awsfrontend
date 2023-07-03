@@ -1,26 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+interface Patient {
+id: number;
+name: string;
+age: number;
 }
 
-export default App;
+function App() {
+const [patients, setPatients] = useState<Patient[]>([]);
+
+useEffect(() => {
+fetchPatients();
+}, []);
+
+const fetchPatients = async () => {
+try {
+const response = await fetch('http://hc-app-bk-env.eba-rwngmuxk.us-east-1.elasticbeanstalk.com/api/patients');
+const data = await response.json();
+setPatients(data);
+} catch (error) {
+console.error('Error fetching patients:', error);
+}
+};
+
+return (
+<div>
+<h1>Healthcare App</h1>
+<ul>
+{patients.map((patient) => (
+<li key={patient.id}>
+{patient.name} - {patient.age} years old
+</li>
+))}
+</ul>
+</div>
+);
+}export default App;
