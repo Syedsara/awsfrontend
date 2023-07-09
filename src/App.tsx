@@ -27,7 +27,7 @@ return (
 <div>
 <h1>Healthcare App</h1>
 <ul>
-{patients.map((patient) => (
+{patients && patients.map((patient) => (
 <li key={patient.id}>
 {patient.name} - {patient.age} years old
 </li>
