@@ -1,15 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import Appv2 from './version2';
+import S3Uploader from './ImageUploader';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <h1>S3 Image uploader</h1>
+    <S3Uploader/>
+    <Appv2 />
+  
   </React.StrictMode>
 );
 
