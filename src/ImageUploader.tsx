@@ -26,9 +26,8 @@ const S3Uploader: React.FC = () => {
 
     const s3 = new AWS.S3({
 
-      accessKeyId: "AKIARDJ5HQT3R3IHDDFN",
-
-      secretAccessKey: "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",
+      accessKeyId: process.env.REACT_APP_ACCESSKEYID,
+      secretAccessKey: process.env.REACT_APP_SECRETACCESSKEY,
 
       region: "us-east-1",
 
