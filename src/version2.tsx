@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react';
-
- 
+import './App.css'; // Replace 'Appv2.css' with the path to your CSS file
 
 interface Patient {
   id: number;
   name: string;
   age: number;
 }
-
- 
 
 function Appv2() {
   const [patients, setPatients] = useState<Patient[]>([]);
@@ -17,13 +14,9 @@ function Appv2() {
   const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>('');
 
- 
-
   useEffect(() => {
     fetchPatients();
   }, []);
-
- 
 
   const fetchPatients = async () => {
     try {
@@ -35,8 +28,6 @@ function Appv2() {
     }
   };
 
- 
-
   const handleSort = (field: keyof Patient) => {
     if (field === sortedField) {
       setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
@@ -46,13 +37,9 @@ function Appv2() {
     }
   };
 
- 
-
   const handleSelect = (patient: Patient) => {
     setSelectedPatient(patient);
   };
-
- 
 
   const handleDelete = async (id: number) => {
     try {
@@ -65,20 +52,13 @@ function Appv2() {
       console.error('Error deleting patient:', error);
     }
   };
-
- 
-
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
 
- 
-
   const filteredPatients = patients.filter((patient) =>
     patient.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
- 
 
   const sortedPatients = sortedField
     ? filteredPatients.slice().sort((a, b) => {
@@ -90,45 +70,36 @@ function Appv2() {
       })
     : filteredPatients;
 
- 
-
-  return (
-<div>
-<h1>Healthcare App</h1>
-<input
-        type="text"
-        value={searchTerm}
-        onChange={handleSearch}
-        placeholder="Search patient"
-      />
-<table>
-<thead>
-<tr>
-<th onClick={() => handleSort('name')}>Name</th>
-<th onClick={() => handleSort('age')}>Age</th>
-<th>Actions</th>
-</tr>
-</thead>
-<tbody>
-          {sortedPatients.map((patient) => (
-<tr key={patient.id} onClick={() => handleSelect(patient)}>
-<td>{patient.name}</td>
-<td>{patient.age}</td>
-<td>
-<button onClick={() => handleDelete(patient.id)}>Delete</button>
-</td>
-</tr>
-          ))}
-</tbody>
-</table>
-      {selectedPatient && (
-<div>
-<h2>Selected Patient</h2>
-<p>Name: {selectedPatient.name}</p>
-<p>Age: {selectedPatient.age}</p>
-</div>
-      )}
-</div>
-  );
-}
+    return (
+      <div className="app-container">
+        <h1>Healthcare App v2</h1>
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={handleSearch}
+          placeholder="Search patient"
+        />
+        <div className="patient-grid">
+      {sortedPatients.map((patient) => (
+        <div
+          key={patient.id}
+          className={`patient ${selectedPatient === patient ? 'selected' : ''}`}
+          onClick={() => handleSelect(patient)}
+        >
+          <h3 className="patient-name">{patient.name}</h3>
+          <p className="patient-info">Age: {patient.age}</p>
+          <button onClick={() => handleDelete(patient.id)}>Delete</button>
+        </div>
+      ))}
+    </div>
+        {selectedPatient && (
+          <div>
+            <h2>Selected Patient</h2>
+            <p>Name: {selectedPatient.name}</p>
+            <p>Age: {selectedPatient.age}</p>
+          </div>
+        )}
+      </div>
+    );
+        }   
 export default Appv2;

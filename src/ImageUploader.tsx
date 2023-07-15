@@ -2,26 +2,15 @@
 
 // const REGION = "ap-southeast-2r";
 
-// const ACCESS_KEY = "AKIAYCDGWDHINEKJBQTG";
-
-// const SECRET_KEY = "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";
-
-
 
 
 import React, { useState } from "react";
 
 import AWS from "aws-sdk";
 
-
-
-
 const S3Uploader: React.FC = () => {
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-
-
-
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 
@@ -31,21 +20,15 @@ const S3Uploader: React.FC = () => {
 
   };
 
-
-
-
   const handleUpload = () => {
 
     if (!selectedFile) return;
 
-
-
-
     const s3 = new AWS.S3({
 
-      accessKeyId: "AKIARDJ5HQT3YVDIJPVE",
+      accessKeyId: "AKIARDJ5HQT3R3IHDDFN",
 
-      secretAccessKey: "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",
+      secretAccessKey: "bEff+WBl75Nf42JxCt0LxgsMw3EJrD2o+wfCJI7F",
 
       region: "us-east-1",
 
@@ -60,9 +43,6 @@ const S3Uploader: React.FC = () => {
       Body: selectedFile,
 
     };
-
-
-
 
     s3.upload(
 
